@@ -21,9 +21,9 @@ function App() {
   const [reviewClick, setReviewClick] = useState(false)
 
   async function reviewCode() {
-    setReviewClick(true);        // Indicates button was clicked
-    setReview("");               // Clear previous review
-    setError(false);             // Reset error state
+    setReviewClick(true);        
+    setReview("");              
+    setError(false);            
 
     try {
       const res = await axios.post('https://ai-code-review-backend-45sx.onrender.com/ai/get-review', { code });
@@ -53,13 +53,13 @@ function App() {
                 border:"2px solid black",
                 borderRadius:"12px",
                 backgroundColor:"white",
-                padding:"1px 12px"
+                margin:"1px 12px"
               }}
             />
           </div>
           <div className="review-btn">
             <button
-              className='bg-blue-400 p-3 rounded-2xl absolute bottom-3 right-8 hover:cursor-pointer'
+              className='bg-blue-400 px-3 py-2 font-semibold border-2 rounded-2xl text-xl hover:bg-blue-500 absolute bottom-3 right-8 hover:cursor-pointer'
               onClick={reviewCode}
             >Review</button>
           </div>
