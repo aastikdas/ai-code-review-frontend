@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
@@ -19,11 +19,21 @@ function App() {
   const [review, setReview] = useState('')
   const [error, setError] = useState(true)
   const [reviewClick, setReviewClick] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const message = [
+  "Analyzing your code...",
+  "Connecting to AI servers...",
+  "Reading syntax and logic...",
+  "Generating smart feedback...",
+  "Finalizing your review..."
+];
+
 
   async function reviewCode() {
     setReviewClick(true);        
     setReview("");              
-    setError(false);            
+    setError(false);    
+    setCurrentIndex(0);        
 
     try {
       const res = await axios.post('https://ai-code-review-backend-45sx.onrender.com/ai/get-review', { code });
@@ -34,7 +44,13 @@ function App() {
       console.log(err);
     }
   }
-
+  useEffect( ()=>{
+    if (!reviewClick) return;
+    const interval = setInterval(() => {
+      setCurrentIndex(prevIndex => (prevIndex + 1) );
+    }, 2000);
+    return () => clearInterval(interval);
+  },[reviewClick])
 
   return (
     <>
@@ -71,9 +87,11 @@ function App() {
               review ? (
                 <Markdown >{review}</Markdown>
               ) : reviewClick ? (
-                <div className='text-6xl text-gray-400 font-bold flex items-center justify-center h-[70vh]'>Review In Progress...</div>
+                <div className='text-4xl lg:text-6xl text-gray-400 font-bold flex items-center justify-center h-[70vh] text-center'>
+                  {message[currentIndex]? message[currentIndex]:"Serving you the results..."}
+                </div>
               ) : (
-                <div className='text-6xl text-gray-400 font-bold flex items-center justify-center h-[70vh]'>Review Appears Here</div>
+                <div className='text-4xl lg:text-6xl text-gray-400 font-bold flex items-center justify-center h-[70vh]'>Review Appears Here</div>
               )
             }
           </div>
