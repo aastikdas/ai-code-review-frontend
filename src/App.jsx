@@ -54,10 +54,10 @@ function App() {
 
   return (
     <>
-      <main className='flex p-2 gap-4 bg-slate-600'>
-        <div className="left w-[50vw] bg-amber-50 rounded-2xl p-1 basis-1/2 relative">
+      <main className='flex flex-col sm:flex-row p-2 gap-4 bg-slate-600'>
+        <div className="left w-[90vw] sm:w-[50vw] bg-amber-50 rounded-2xl p-1 relative">
           <span className='m-auto p-3 flex justify-center border-b-4 rounded-b-2xl text-xl font font-semibold'>Enter your Code Here</span>
-          <div className="code h-[84vh] mt-2 overflow-y-scroll px-4 ">
+          <div className="code h-[42vh] sm:h-[84vh] mt-2 overflow-y-scroll px-4 ">
             <Editor
               value={code}
               onValueChange={code => setCode(code)}
@@ -75,14 +75,14 @@ function App() {
           </div>
           <div className="review-btn">
             <button
-              className='bg-blue-400 px-3 py-2 font-semibold border-2 rounded-2xl text-xl hover:bg-blue-500 absolute bottom-3 right-8 hover:cursor-pointer'
+              className='bg-blue-400 px-3 py-2 font-semibold border-2 rounded-2xl sm:text-xl hover:bg-blue-500 absolute bottom-3 right-8 hover:cursor-pointer'
               onClick={reviewCode}
             >Review</button>
           </div>
         </div>
-        <div className="right basis-1/2 w-[50vw] bg-amber-50   rounded-2xl p-2 ">
+        <div className="right w-[90vw] sm:w-[50vw] bg-amber-50   rounded-2xl p-2 ">
           <span className='text-gray-700 flex justify-center border-b-4 rounded-b-2xl text-xl font font-semibold p-3'>AI Generated Review</span>
-          <div className="aihelp h-[84vh] my-2 overflow-scroll px-4 py-2 border-2 rounded-2xl mx-[12px]">
+          <div className="aihelp h-[42vh] sm:h-[84vh] my-2 overflow-scroll px-4 py-2 border-2 rounded-2xl mx-[12px]">
             {
               review ? (
                 <Markdown >{review}</Markdown>
